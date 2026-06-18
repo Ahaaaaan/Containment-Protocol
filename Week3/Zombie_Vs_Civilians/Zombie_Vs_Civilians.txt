@@ -1,0 +1,13 @@
+Properties of a Zombie:
+    1. Runs away if it meets a group of 5+ civilians
+    2. Has a normal view radius
+    3. Attacks the nearest Civilian and avoids other Zombies
+
+Properties of a Civilian:
+    1. Lives forever, unless killed by a Zombie
+    2. Has a normal view radius when calm, larger view radius when alert
+    3. Tries to flock if alert.
+    4. Has a probability (in the video, prob = 1) of getting alerted if nearby civilian is     	alerted.
+
+As a Zombie (Green) moves closer to a Calm Civilian (Blue), the civilian goes into alerted mode (Red), and can share this information with nearby civilians as well. A civilian stays in alerted mode till 10s after the time instant when the zombie is out of its view radius.
+A group of 5+ Civilians scare the Zombie away.

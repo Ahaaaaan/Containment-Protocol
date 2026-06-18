@@ -1,0 +1,15 @@
+Properties of a Predator:
+    1. Live for a limited timespan, which resets when they eat a Prey.
+    2. Have a larger view radius
+    3. Attacks the nearest Prey and avoids other Predators
+
+Properties of a Prey:
+    1. Lives forever, unless killed by a Predator
+    2. Has a smaller view radius
+    3. Tries to flock with other Prey, and fears Predators
+
+The predators have a larger sensing radius, and are thus able to gain momentum for an attack on the prey before the prey come to know. This gives them an advantage to outrun the prey. We see that when a predator attacks a large flock of prey, the prey on either side of the predator split off and form their own flocks. If the predator is moving fast enough, the two flocks merge back when the predator has crossed their area. 
+
+The flocking tendency within the prey group is decently strong, and as a whole they exist in 3-4 different flocks, with very few single ones. The flocks are mostly split by the predators and the wrapping around.
+
+On average, the prey do seem to survive (against 1 predator). 

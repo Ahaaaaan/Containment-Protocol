@@ -1,0 +1,7 @@
+Introduction:
+
+We start with a group of uninformed agents, with a single informed agent in their midst. The uninformed agents are denoted by black boids, while the informed agent is a blue boid. The uninformed agents do not care for anything except for the fact that they do not want to collide with other agents. The informed agents are aware of the fact that there is something special at a particular co-ordinate in the plane in which they live. Informed agents, thus, then try to go to this special co-ordinate. With a certain probability of being convincing enough, they tell all the other boids present in their sensing radius that this special thing exists at this coordinate, making them informed as well. 
+
+Observations:
+
+We see that if the repulsion force is not too strong, the information propagates through the collection of boids quite fast, and (almost always) all the boids become informed. These boids then try to jostle for position to try to get closer to the special co-ordinate. This attractive force competes with the inter-boid repulsion to result in a kind of packed structure of informed boids around the special point.
