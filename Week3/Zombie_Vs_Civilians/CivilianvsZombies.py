@@ -225,6 +225,7 @@ class Civilian:
         self.nozomb = 0
         self.alert_prob = 1
         self.t_last = pygame.time.get_ticks()
+        self.label = 0
         
     def move(self):
         # Apply velocity vectors
@@ -347,8 +348,8 @@ class Civilian:
     
     def update_velocity(self):
         k1 = 0.02
-        k2 = 0.02
-        k3 = 0.03
+        k2 = 0.03
+        k3 = 0.04
         k4 = 0.02
         if self.alert == True:
             F1 = self.collision_avoidance()
@@ -384,14 +385,70 @@ class Civilian:
         if flag1 and flag2:
             v = np.array([y2 - y1, x1 - x2]) #Normal vector from obstacle surface
             v = v*((2*self.radius - r1 - r2))/(2*np.linalg.norm(v))
-            #v = v*4/((np.linalg.norm(v))*((r1+r2)**2))
+            #v = v*4/((np.linalg.norm(v))*((r1+r2)**2)) --> Coulomb Repulsion
         else:
             v = np.zeros(2)
         return v
+    
+    def check_member(self, cluster, minPts = 1):
+        if self.label == 1:
+            return cluster
+        if self.label == 2:
+            cluster.append(self)
+            return cluster
         
-all_civ = [Civilian() for _ in range(20)]
+        if len(self.nearciv) == 0:
+            self.label = 0
+            return cluster
+        
+        if len(self.nearciv) >= minPts:
+            self.label = 1
+            cluster.append(self)
+        else:
+            self.label = 2
+            if len(cluster) > 0:
+                cluster.append(self)
+            return cluster
+        
+        for pair in self.nearciv:
+            nei, dist2 = pair
+            if nei.label == 1:
+                continue
+            else:
+                cluster = nei.check_member(cluster, minPts)
+        
+        return cluster
+      
+def get_survival_rate(num_civ, all_civ):
+    left = len(all_civ)
+    return (left/num_civ)*100
+
+def get_time_of_collapse(all_civ):
+    if len(all_civ) == 0:
+        return (pygame.time.get_ticks())/1000
+    else:
+        return -1
+
+def get_cluster_sizes(all_civ):
+    clusters = []
+    cluster_sizes = []
+    for civ in all_civ:
+        cluster = []
+        cluster = civ.check_member(cluster, 1)
+        if cluster:
+            clusters.append(cluster)
+            cluster_sizes.append(len(cluster))
+    for civ in all_civ:
+        if civ.label == 0:
+            cluster_sizes.append(1)
+    return cluster_sizes
+
+    
+num_civ = 20
+all_civ = [Civilian() for _ in range(num_civ)]
 all_zomb = [Zombie() for _ in range(1)]
 running = True
+all_flocks = []
 while running:
     # 2. Handle User Input Events
     for event in pygame.event.get():
@@ -437,8 +494,15 @@ while running:
     clock.tick(60)
 
 pygame.quit()
-sys.exit()       
-
-
-
+t = get_time_of_collapse(all_civ)
+if t == -1:
+    sr = get_survival_rate(num_civ, all_civ)
+    cluster_sizes = get_cluster_sizes(all_civ)
+    print(cluster_sizes)
+    print(np.mean(cluster_sizes))
+    print(sr)
+else:
+    print(t)
+    
+sys.exit()
 
