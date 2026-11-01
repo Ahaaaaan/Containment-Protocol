@@ -1,0 +1,5 @@
+A series of 4 mini-projects made as part of Seasons Of Code 2026, centered around simulating and observing the behavior of Multi-Agent Systems:
+1. 'Conway's Game of Life' is a simple Python demonstration of how the rules of Conway's Game of Life drive the evolution of a pixel grid.
+2. 'Neural Cellular Automata' shows how Convolutional Neural Networks can be trained to approximate a local update rule, which when applied over a pixel grid for sufficiently long, can form a desired image.
+3. 'Boids' is a Python demonstration showing how just three local rules can create a global flocking behavior akin to birds. These rules can be modified to create some interesting and fun situations to observe.
+4. 'Cooperating Amongst Kingdoms' was a study into whether 5 rulers, each represented by a Deep Q-Network, could learn the optimal trades to grow their kingdoms effectively. The result was that the simple DQNs' could not learn in such a non-stationary environment. MARL approaches would come in handy here.
